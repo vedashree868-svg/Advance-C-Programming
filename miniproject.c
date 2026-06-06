@@ -1,216 +1,144 @@
-#include<stdio.h>
-#include<stdlib.h>
-
-struct batsman
- {
-   char name[25];
-   int runs,score,balls,toruns,tobal,ones,twos,threes,fours,sixes;
-   int max_six,max_run,max_four;
-   float str;
-
- }pl1[100],pl3;
-
-
-struct bowler
- {
-   char name[25];
-   int runsgv,wkttkn,overs;
-   int max_w;
-   float econ;
- }pl2[100],pl4;
-
-
-int main()
-{
- int plno,choice;
-  int i,n,m;
-  printf("Enter the Batsman detail:\n");
-  printf("Enter the number of batsman:\n");
-  scanf("%d",&m);
-  for(i=0;i<m;i++)
-   {
-
-       printf("Enter name of batsman%d:\n",i+1);
-       scanf("%s",pl1[i].name);
-
-
-       printf("Enter the number of ones scored by player%d:\n ",i+1);
-       scanf("%d",&pl1[i].ones);
-
-
-       printf("Enter the number of twos scored by player%d:\n ",i+1);
-       scanf("%d",&pl1[i].twos);
-
-
-       printf("Enter the number of threes scored by player%d:\n ",i+1);
-       scanf("%d",&pl1[i].threes);
-
-
-       printf("Enter the number of fours scored by player%d:\n ",i+1);
-       scanf("%d",&pl1[i].fours);
-
-
-       printf("Enter the number of sixes scored by player%d:\n ",i+1);
-       scanf("%d",&pl1[i].sixes);
-
-
-       printf("Enter the balls played by the player%d:\n",i+1);
-       scanf("%d",&pl1[i].balls);
-   }
-
-
-
-   printf("\nEnter the bowlers details:\n");
-
-   printf("Enter the number of bowlers:\n");
-
-   scanf("%d",&n);
-
-
-   for(i=0;i<n;i++)
-   {
-
-       printf("\nEnter name of bowler%d:",i+1);
-       scanf("%s",pl2[i].name);
-
-
-       printf("Enter the runs given by the bowler%d:\n ",i+1);
-       scanf("%d",&pl2[i].runsgv);
-
-
-       printf("Enter the overs bowled by the bowler%d:\n",i+1);
-       scanf("%d",&pl2[i].overs);
-
-
-       printf("Enter the wickets taken by the bowler%d\n",i+1);
-       scanf("%d",&pl2[i].wkttkn);
-
-   }
-
-   printf("Thank you all details are recorded\n");
-
-
-   do
-    {
-
-       printf("Enter the choice:\n 1)Batsman detail:\n 2)Bowlers detail:\n 3)Match summary:\n 4)Record:\n 5)Exit\n ");
-       scanf("%d",&choice);
-
-     switch(choice)
-      {
-
-        case 1:
-              printf("Enter the batsman number to see his details\n");
-              scanf("%d",&plno);
-
-              plno--;
-              printf("                       Player Detail\n");
-              printf("===========================================================================\n");
-              printf(" Batsman        runs           balls        fours       sixes         sr   \n");
-              printf("===========================================================================\n");
-
-
-              pl1[plno].runs=(1*pl1[plno].ones)+(2*pl1[plno].twos)+(3*pl1[plno].threes)+(4*pl1[plno].fours)+(6*pl1[plno].sixes);
-              pl1[plno].str=(pl1[plno].runs*100.00)/pl1[plno].balls;
-              printf(" %-15s %-14d %-13d %-11d %-11d %-9.2f\n\n",pl1[plno].name,pl1[plno].runs,pl1[plno].balls,pl1[plno].fours,pl1[plno].sixes,pl1[plno].str);
-
-              break;
-
-
-        case 2:
-             printf("Enter the bowlers number to see his details\n");
-             scanf("%d",&plno);
-
-             plno--;
-              printf("                         Player Detail\n  ");
-              printf("=================================================================\n");
-              printf(" Bowler        overs           runs        wicket       economy\n");
-              printf("=================================================================\n");
-
-               for(i=0;i<n;i++)
-               {   pl2[plno].econ=pl2[plno].runsgv/pl2[plno].overs;
-                   printf(" %-15s %-14d %-13d %-11d %-11.2f\n\n",pl2[plno].name,pl2[plno].overs,pl2[plno].runsgv,pl2[plno].wkttkn,pl2[plno].econ);
-               }
-
-             break;
-
-        case 3:
-              printf("                     Match summary\n");
-              printf("==========================================================================\n");
-              printf(" Batsman        runs           balls        fours       sixes         sr   \n");
-              printf("==========================================================================\n");
-
-              for(i=0;i<1;i++)
-                {
-                    pl1[i].runs=(1*pl1[i].ones)+(2*pl1[i].twos)+(3*pl1[i].threes)+(4*pl1[i].fours)+(6*pl1[i].sixes);
-                    pl3.toruns+=pl1[i].runs;
-                    pl1[i].str=(pl1[i].runs*100.00)/pl1[i].balls;
-                    printf(" %-15s %-14d %-13d %-11d %-11d %-9.2f\n\n",pl1[i].name,pl1[i].runs,pl1[i].balls,pl1[i].fours,pl1[i].sixes,pl1[i].str);
-                }
-                printf("TOTAL RUNS:%d\n\n",pl3.toruns);
-              printf("\n\n");
-              printf("=================================================================\n");
-              printf(" Bowler        overs           runs        wicket       economy\n");
-              printf("=================================================================\n");
-
-               for(i=0;i<n;i++)
-               {   pl2[i].econ=pl2[i].runsgv/pl2[i].overs;
-                   printf(" %-15s %-14d %-13d %-11d %-11.2f\n\n\n",pl2[i].name,pl2[i].overs,pl2[i].runsgv,pl2[i].wkttkn,pl2[i].econ);
-               }
-
-
-               break;
-
-        case 4: pl3.max_run=0,pl4.max_w=0,pl3.max_four=0,pl3.max_six=0;
-       
-                for(i=0;i<m;i++)
-                  { 
-                     pl1[i].runs=(1*pl1[i].ones)+(2*pl1[i].twos)+(3*pl1[i].threes)+(4*pl1[i].fours)+(6*pl1[i].sixes);
-                     if(pl3.max_run<pl1[i].runs)
-                        {
-                          pl3.max_run=pl1[i].runs;
-
-                        }
-                 
-                     if(pl3.max_six<pl1[i].sixes)
-                       {
-                        pl3.max_six=pl1[i].sixes;
-                       }
-                 
-                     if(pl3.max_four<pl1[i].fours)
-                       {
-                        pl3.max_four=pl1[i].fours;
-                       }
- 
-                     if(pl4.max_w<pl2[i].wkttkn)
-                      {
-                      pl4.max_w=pl2[i].wkttkn;
-                      }
-                  }
-              printf("Highest runs scored by the batsman:%d\n",pl3.max_run);
-   
-              printf("Maximum fours scored by the batsman:%d\n",pl3.max_four);
-
-              printf("Maximum sixes scored by the batsman%d:\n",pl3.max_six);
- 
-             printf("Maximum wickets taken by the bowler:%d\n",pl4.max_w);
-
-             break;
-
-
-
-        case 5:
-            exit(1);
-
-        default:
-             printf("Enter the correct choice\n");
-             break;
-
-      }
-
-    }while(choice!=5);
-
-
-   return 0;
-
+Here's the complete implementation:
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
+#define WIDTH 80
+#define HEIGHT 24
+#define EMPTY '_'
+#define PIXEL '*'
+
+char picture[HEIGHT][WIDTH];
+
+void clearPicture() {
+    for (int y = 0; y < HEIGHT; y++)
+        for (int x = 0; x < WIDTH; x++)
+            picture[y][x] = EMPTY;
+}
+
+void displayPicture() {
+    for (int y = 0; y < HEIGHT; y++) {
+        for (int x = 0; x < WIDTH; x++)
+            printf("%c", picture[y][x]);
+        printf("\n");
+    }
+}
+
+void setPixel(int x, int y) {
+    if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT)
+        picture[y][x] = PIXEL;
+}
+
+void drawLine(int x1, int y1, int x2, int y2) {
+    int dx = abs(x2 - x1);
+    int dy = abs(y2 - y1);
+    int sx = (x1 < x2) ? 1 : -1;
+    int sy = (y1 < y2) ? 1 : -1;
+    int err = dx - dy;
+
+    while (1) {
+        setPixel(x1, y1);
+        if (x1 == x2 && y1 == y2) break;
+        int e2 = 2 * err;
+        if (e2 > -dy) { err -= dy; x1 += sx; }
+        if (e2 <  dx) { err += dx; y1 += sy; }
+    }
+}
+
+void drawRectangle(int x1, int y1, int x2, int y2) {
+    drawLine(x1, y1, x2, y1); // Top
+    drawLine(x1, y2, x2, y2); // Bottom
+    drawLine(x1, y1, x1, y2); // Left
+    drawLine(x2, y1, x2, y2); // Right
+}
+
+void drawCircle(int cx, int cy, int radius) {
+    int x = 0, y = radius;
+    int d = 3 - 2 * radius;
+
+    while (x <= y) {
+        setPixel(cx + x, cy + y);
+        setPixel(cx - x, cy + y);
+        setPixel(cx + x, cy - y);
+        setPixel(cx - x, cy - y);
+        setPixel(cx + y, cy + x);
+        setPixel(cx - y, cy + x);
+        setPixel(cx + y, cy - x);
+        setPixel(cx - y, cy - x);
+
+        if (d < 0)
+            d += 4 * x + 6;
+        else {
+            d += 4 * (x - y) + 10;
+            y--;
+        }
+        x++;
+    }
+}
+
+void drawTriangle(int x1, int y1, int x2, int y2, int x3, int y3) {
+    drawLine(x1, y1, x2, y2);
+    drawLine(x2, y2, x3, y3);
+    drawLine(x3, y3, x1, y1);
+}
+
+int main() {
+    int choice;
+    clearPicture();
+    printf("2D Graphics Editor\n");
+    printf("Canvas size: %d x %d\n", WIDTH, HEIGHT);
+    printf("Use coordinates x y.\n");
+    printf("x range: 0 to %d\n", WIDTH - 1);
+    printf("y range: 0 to %d\n", HEIGHT - 1);
+
+    while (1) {
+        printf("\nMenu\n");
+        printf("1. Draw Line\n");
+        printf("2. Draw Rectangle\n");
+        printf("3. Draw Circle\n");
+        printf("4. Draw Triangle\n");
+        printf("5. Display Picture\n");
+        printf("0. Exit\n");
+        printf("Enter choice: ");
+        scanf("%d", &choice);
+
+        if (choice == 1) {
+            int x1, y1, x2, y2;
+            printf("Enter x1 y1 x2 y2: ");
+            scanf("%d %d %d %d", &x1, &y1, &x2, &y2);
+            drawLine(x1, y1, x2, y2);
+        }
+        else if (choice == 2) {
+            int x1, y1, x2, y2;
+            printf("Enter top-left x y and bottom-right x y: ");
+            scanf("%d %d %d %d", &x1, &y1, &x2, &y2);
+            drawRectangle(x1, y1, x2, y2);
+        }
+        else if (choice == 3) {
+            int cx, cy, radius;
+            printf("Enter center x y and radius: ");
+            scanf("%d %d %d", &cx, &cy, &radius);
+            drawCircle(cx, cy, radius);
+        }
+        else if (choice == 4) {
+            int x1, y1, x2, y2, x3, y3;
+            printf("Enter x1 y1 x2 y2 x3 y3: ");
+            scanf("%d %d %d %d %d %d", &x1, &y1, &x2, &y2, &x3, &y3);
+            drawTriangle(x1, y1, x2, y2, x3, y3);
+        }
+        else if (choice == 5) {
+            printf("The picture is:\n");
+            displayPicture();
+        }
+        else if (choice == 0) {
+            printf("Exiting program.\n");
+            break;
+        }
+        else {
+            printf("Invalid choice.\n");
+        }
+    }
+    return 0;
 }
