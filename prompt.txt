@@ -1,0 +1,334 @@
+For the program exactly as written in main(), the displayPicture() function prints a 40×20 grid. Using * for drawn pixels and _ for empty pixels, the picture looks like:
+
+* * * * * * * * * * * * * * * * * * * * * _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ * _ _ _ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ * * * * * * * * * * _ _ _ _ _ _ _ _ _ _ * _ _ _ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ * * _ _ _ * * * * * _ _ _ _ _ _ _ _ _ _ * _ _ _ _ _ * _ _ _ _ _ _ _ _
+_ _ _ _ _ * * _ _ _ * * * * * * _ _ _ _ _ _ _ _ _ * _ _ _ * * * * * _ _ _ _ _ _
+_ _ _ _ _ * * * * * * * * * * * * _ _ _ _ _ _ _ _ * _ _ * * * * * * * _ _ _ _ _
+_ _ _ _ _ * * * * * * * * * * * * * _ _ _ _ _ _ _ * _ * * * * * * * * * _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ * * * * * * * _ _ _ _ _ _ * * * * * * * * * * * * _ _ _
+_ _ _ _ _ _ _ _ _ _ _ * * * * * * * * * _ _ _ _ _ * * * * * * * * * * * * _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ * * * * * * * * * * _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ * * * * * * * * _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ * _ * * * * * * * * _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ * * * * * * * _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ * _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+The visible objects are:
+
+Top horizontal line (drawLine(0,0,20,0))
+Rectangle at (5,3) size 10×5
+Deleted hole inside the rectangle at (7,4) size 3×2
+Triangle centered around x=15
+Vertical line at x=25
+Circle centered at (30,10) with radius 4
+#include <stdio.h>
+
+#define WIDTH 40
+#define HEIGHT 20
+
+char picture[HEIGHT][WIDTH];
+
+// Fill the canvas with '_'
+void initializePicture()
+{
+    int i, j;
+
+    for(i = 0; i < HEIGHT; i++)
+    {
+        for(j = 0; j < WIDTH; j++)
+        {
+            picture[i][j] = '_';
+        }
+    }
+}
+void drawRectangle(int x, int y, int width, int height)
+{
+    int i, j;
+
+    for(i = y; i < y + height; i++)
+    {
+        for(j = x; j < x + width; j++)
+        {
+            picture[i][j] = '*';
+        }
+    }
+}
+void drawLine(int x1, int y1, int x2, int y2)
+{
+    int i;
+
+    if(y1 == y2)
+    {
+        for(i = x1; i <= x2; i++)
+        {
+            picture[y1][i] = '*';
+        }
+    }
+    else if(x1 == x2)
+    {
+        for(i = y1; i <= y2; i++)
+        {
+            picture[i][x1] = '*';
+        }
+    }
+}
+void drawTriangle(int x, int y, int height)
+{
+    int i, j;
+
+    for(i = 0; i < height; i++)
+    {
+        for(j = x - i; j <= x + i; j++)
+        {
+            picture[y + i][j] = '*';
+        }
+    }
+}
+void drawCircle(int centerX, int centerY, int radius)
+{
+    int x, y;
+
+    for(y = 0; y < HEIGHT; y++)
+    {
+        for(x = 0; x < WIDTH; x++)
+        {
+            int dx = x - centerX;
+            int dy = y - centerY;
+
+            if(dx * dx + dy * dy <= radius * radius)
+            {
+                picture[y][x] = '*';
+            }
+        }
+    }
+}
+void deleteRectangle(int x, int y, int width, int height)
+{
+    int i, j;
+
+    for(i = y; i < y + height; i++)
+    {
+        for(j = x; j < x + width; j++)
+        {
+            picture[i][j] = '_';
+        }
+    }
+}
+
+// Display the canvas
+void displayPicture()
+{
+    int i, j;
+
+    for(i = 0; i < HEIGHT; i++)
+    {
+        for(j = 0; j < WIDTH; j++)
+        {
+            printf("%c ", picture[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+int main()
+{
+    printf("2D Graphics Editor Started!\n\n");
+
+    initializePicture();
+    drawRectangle(5, 3, 10, 5);
+    drawLine(0, 0, 20, 0);
+    drawLine(25, 2, 25, 12);
+    drawTriangle(15, 5, 5);
+
+    drawCircle(30, 10, 4);
+
+    deleteRectangle(7, 4, 3, 2);
+    displayPicture();
+
+    return 0;
+} give outprut for the case and types     give prompt for prompt.txt
+
+If you need a prompt for prompt.txt describing this program and asking for its output and shape types, you can use:
+
+Analyze the following C program for a simple 2D graphics editor.
+
+Tasks:
+1. Identify all functions and their purposes.
+2. List the types of shapes drawn on the canvas.
+3. Explain the order in which the shapes are drawn.
+4. Identify any overlapping shapes.
+5. Explain the effect of the deleteRectangle() operation.
+6. Show the final 40x20 canvas output exactly as produced by displayPicture().
+7. Describe the final image in words.
+
+The program initializes a 40x20 canvas with '_' characters and uses '*' to draw shapes.
+
+Expected shape types:
+- Rectangle
+- Horizontal Line
+- Vertical Line
+- Triangle
+- Circle
+- Deleted Rectangle (erased region)
+
+Provide:
+- Function-wise explanation
+- Shape-wise explanation
+- Final canvas output
+- Visual description of the resulting picture
+Types of shapes in the program
+
+Rectangle
+
+drawRectangle(5, 3, 10, 5);
+
+Horizontal Line
+
+drawLine(0, 0, 20, 0);
+
+Vertical Line
+
+drawLine(25, 2, 25, 12);
+
+Triangle
+
+drawTriangle(15, 5, 5);
+
+Circle
+
+drawCircle(30, 10, 4);
+
+Erase/Delete Rectangle
+
+deleteRectangle(7, 4, 3, 2);
+Execution Order
+1. Initialize canvas with '_'
+2. Draw Rectangle
+3. Draw Horizontal Line
+4. Draw Vertical Line
+5. Draw Triangle
+6. Draw Circle
+7. Delete part of Rectangle
+8. Display Picture
+Output Header
+2D Graphics Editor Started!
+
+followed by the 40×20 character canvas printed by displayPicture().
+
+For the Mini Project, students may use any Generative AI tool of their choice.
+
+However, students must copy all the prompts used to interact with the GenAI tool, along with the corresponding responses, into a text file. File name should be prompt.txt.
+
+The prompt.txt file must be uploaded to the same Git repository where the mini project is submitted. give me regarding this
+
+You need a prompt.txt file that records every prompt you gave to the GenAI tool and the corresponding responses used during your mini project.
+
+For your 2D Graphics Editor project, you can structure prompt.txt like this:
+
+MINI PROJECT: 2D GRAPHICS EDITOR
+
+==================================================
+PROMPT 1
+==================================================
+
+Prompt:
+Write a C program for a simple 2D Graphics Editor using a 40x20 canvas.
+The program should support:
+1. Initializing the canvas with '_'
+2. Drawing a rectangle
+3. Drawing horizontal and vertical lines
+4. Drawing a triangle
+5. Drawing a circle
+6. Deleting a rectangular region
+7. Displaying the final canvas
+
+Response:
+[Paste the generated C code here]
+
+==================================================
+PROMPT 2
+==================================================
+
+Prompt:
+Explain each function used in the 2D Graphics Editor program.
+
+Response:
+initializePicture() - Fills the canvas with '_'.
+
+drawRectangle(x, y, width, height) - Draws a filled rectangle using '*'.
+
+drawLine(x1, y1, x2, y2) - Draws a horizontal or vertical line.
+
+drawTriangle(x, y, height) - Draws a filled triangle.
+
+drawCircle(centerX, centerY, radius) - Draws a filled circle.
+
+deleteRectangle(x, y, width, height) - Erases a rectangular region.
+
+displayPicture() - Prints the canvas.
+
+main() - Controls program execution.
+
+==================================================
+PROMPT 3
+==================================================
+
+Prompt:
+What shapes are drawn by the program?
+
+Response:
+1. Rectangle
+2. Horizontal Line
+3. Vertical Line
+4. Triangle
+5. Circle
+6. Deleted Rectangle Region
+
+==================================================
+PROMPT 4
+==================================================
+
+Prompt:
+Describe the execution flow of the program.
+
+Response:
+1. Initialize the canvas.
+2. Draw rectangle.
+3. Draw horizontal line.
+4. Draw vertical line.
+5. Draw triangle.
+6. Draw circle.
+7. Delete part of the rectangle.
+8. Display the final picture.
+
+==================================================
+PROMPT 5
+==================================================
+
+Prompt:
+Provide the final output and visual description of the picture.
+
+Response:
+The output consists of a 40x20 canvas containing:
+- A horizontal line at the top.
+- A rectangle on the left.
+- A small deleted region inside the rectangle.
+- A triangle overlapping near the rectangle.
+- A vertical line near the center-right.
+- A circle on the right side.
+
+[Paste the final displayed canvas if required.]
+
+==================================================
+END OF PROMPT LOG
+==================================================
+
+Save this as prompt.txt and upload it to the same Git repository as your mini project. The important requirement is that it contains the actual prompts you used and the corresponding AI responses.
